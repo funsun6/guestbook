@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/../guestbook/public/static/index/css/index.css">
+</head>
+<body>
+    <div class="bg">
+        <div><a href="{:url('index/index/index')}">留言板</a></div>
+        <div><a href="{:url('index/index/add')}">留言</a></div>
+        <form>
+            <input type="hidden" name="id" value="{$message.id}">
+            <textarea name="message" id="board" cols="30" rows="10" maxlength="35">{$message.content}</textarea>
+            <p></p>
+            <button>修改</button>
+        </form>
+
+        
+    </div>
+</body>
+<script src="/../guestbook/public/static/index/js/jquery-1.10.2.min.js"></script>
+<script>
+    $("button").click(function () {
+        $.ajax({
+            url:"{:url('index/index/mod')}",
+            data:$('form').serialize(),
+            dataType:'json',
+            type:'post',
+            success:function (data) {
+                if (data.code == 1) {
+                    location.href = data.url;
+                } else {
+                    alert('修改失败');
+                }
+            }
+
+        });
+    });
+
+
+
+</script>
+
+</html>

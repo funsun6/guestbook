@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/../guestbook/public/static/index/css/index.css">
+</head>
+<body>
+    <div class="bg">
+        <a href="{:url('index/index/add')}">留言</a>
+        <div class="content">
+            <table border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>ID</th>
+                    <th>内容</th>
+                    <th>发布时间</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+                {volist name='messages' id='vo'}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.content}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.update_time}</td>
+                    <td>
+                        <a class="del" dataid="{$vo.id}">删除</a>
+                        <a href="{:url('index/index/mod', ['id' => $vo.id])}">修改</a>
+                    </td>
+
+                </tr>
+                {/volist}
+            </table>
+        </div>
+    </div>
+</body>
+<script src="/../guestbook/public/static/index/js/jquery-1.10.2.min.js"></script>
+
+<script>
+    $(".del").click(function () {
+        let id = $(this).attr('dataid');
+        let isdel = confirm("是否删除");
+        if (isdel == true) {
+            $.ajax({
+                url:"{:url('index/index/del')}",
+                dataType:'json',
+                type:'post',
+                data:{id:id},
+                success:function (data) {
+                    if (data.code == 1) {
+                        alert("删除成功");
+                        location.href = data.url;
+                    }
+                }
+            });
+        } else {
+            alert("已取消");
+        }
+    });
+
+   
+
+
+
+</script>
+
+</html>
