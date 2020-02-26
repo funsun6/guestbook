@@ -1,10 +1,9 @@
 <?php
 namespace app\index\controller;
 use app\common\model\Message;
-use think\Controller;
 
 
-class Index extends Controller
+class Index extends Base
 {
     public function index()
     {
@@ -15,7 +14,7 @@ class Index extends Controller
             'messages' => $messages
         ];
         $this->assign($viewData);
-
+//        return $this->fetch();
         return view();
         
     }

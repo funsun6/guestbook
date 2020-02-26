@@ -12,3 +12,5 @@
 Route::any('add', 'index/index/add');
 
 Route::get('mod-<id>', 'index/index/mod');
+
+Route::get('index', 'index/index/index');
